@@ -5,25 +5,6 @@ date: 2016-11-14 13:34:39.000000000 +00:00
 type: post
 published: true
 status: publish
-categories: []
-tags: []
-meta:
-  _publicize_done_external: a:2:{s:7:"twitter";a:1:{i:13657413;s:59:"https://twitter.com/andrealobster/status/798157210022973444";}s:8:"facebook";a:1:{i:15425352;s:37:"https://facebook.com/1384575758249925";}}
-  _rest_api_published: '1'
-  _rest_api_client_id: "-1"
-  _publicize_job_id: '28901159163'
-  _publicize_done_13720392: '1'
-  _wpas_done_13657413: '1'
-  publicize_twitter_user: andrealobster
-  _publicize_failed_14739251: O:13:"Keyring_Error":2:{s:6:"errors";a:1:{s:21:"keyring-request-error";a:1:{i:0;a:6:{s:7:"headers";O:42:"Requests_Utility_CaseInsensitiveDictionary":1:{s:7:"
-  _publicize_done_15571985: '1'
-  _wpas_done_15425352: '1'
-author:
-  login: andreamazza89
-  email: andrea.mazzarella89@gmail.com
-  display_name: andreamazza89
-  first_name: ''
-  last_name: ''
 ---
 <p>I really like test-driven-development (TDD). It helps me focus on what I am trying to achieve and keeps me on track. By testing first and writing code to make the test pass, we flesh out the problem we want to solve, and then find a way to solve it; thanks to the test we have, we immediately know once the problem is solved (tests go green). This is as opposed to vaguely knowing what we are trying to achieve, writing some code to make that happen, then writing tests to see if it did happen or not. TDD also has a serious amount of positive side effects, including documentation that will not go out of date, and allowing safe refactoring.</p>
 <p>But I am not writing to talk about the merits of TDD. I am going to list a few features I like tests to have. None of this is new nor rocket science, but I would like to compile a list of good features for a test suite to have. I am going to get people to comment on this and possibly grow/enhance this list.</p>
@@ -33,24 +14,24 @@ author:
 <p>(as described in ThoughBot's <a href="https://robots.thoughtbot.com/four-phase-test" target="_blank">4-phase-test</a>)</p></blockquote>
 <p>In the setup phase we fabricate a specific state for the system that we are testing. We then perform an action (exercise), then verify the result of that action against our expectations. In the teardown phase we reset the state of the system under test so we have a 'fresh start' for the next test; this is normally handled by the testing framework or can be automated, so there is normally no need to worry about this stage when writing a test, but it is good to be aware of it I think.</p>
 <p>Ok, example time; I am going to use a very simple domain for this. I want to write a Counter class, which has an #increment method that increases the count, and a <em>#status,</em> which returns the latest count. The counter always starts from zero and can be initialised with a maximum count.<br />
-<img class=" size-full wp-image-1172 aligncenter" src="{{ site.baseurl }}/assets/screen-shot-2016-11-14-at-12-07-08.png" alt="Screen Shot 2016-11-14 at 12.07.08.png" width="755" height="320" /></p>
+<img class=" size-full wp-image-1172 aligncenter" src="{{ site.baseurl }}/assets/screen-shot-2016-11-14-at-12-07-08.png" alt="Screen Shot 2016-11-14 at 12.07.08.png"  /></p>
 <h6>(please ignore the fact that RSpec has a matcher to check for change, which might be a better fit for the test above, as this condenses the exercise and verify phases into one line, which is fine but no good for my point!)</h6>
 <p>Notice how in object-oriented programming, context is extremely important, so that the same function (in this case #increment) has different outcomes, depending on state. By actively thinking about <em>Setup - Exercise - Verify</em> and formatting our tests accordingly (including empty lines between phases), we are telling a clear and exhaustive story, with no need to go find context from elsewhere. Your future self (or other developers) will thank you for making it so easy to grasp what is happening in your test.</p>
 <p>A typical anti-pattern to this is to notice that a few tests share the same setup phase and listen to our DRY-reflex, telling us to remove the duplication and have a shared setup phase somewhere. While removing code duplication is most often a good thing, in this case I do not think it is worth sacrificing clarity and context in the individual test. With a setup phase placed away from the test, you are not telling a full story, you are saying: go find this other information somewhere (I don't know where, figure it out!) so you know the context, and then come back.</p>
 <h2>2. A good test clearly outlines the public interface</h2>
 <p>What is it that we are testing with our tests? Behaviour. The only reason a system (a class or series of collaborating classes) exists is to provide useful services to the user of that system (either the end user or another sub-system, which ultimately benefits the end-user). So if we are focusing on the end-use of a system, our tests should explicitly be centred around the public interface of the system. The tests should look as a 'menu' of what the system has to offer, so the various methods should be the main headers, with a description of how these behave in different conditions inside.</p>
-<p><img class=" size-full wp-image-1154 aligncenter" src="{{ site.baseurl }}/assets/screen-shot-2016-11-14-at-11-43-27.png" alt="Screen Shot 2016-11-14 at 11.43.27.png" width="746" height="423" /></p>
+<p><img class=" size-full wp-image-1154 aligncenter" src="{{ site.baseurl }}/assets/screen-shot-2016-11-14-at-11-43-27.png" alt="Screen Shot 2016-11-14 at 11.43.27.png"  /></p>
 <p>Nice, in the example above the first level of information (zero indentation) is a list of methods that the ExampleSystem has to offer. You can then, for a given method, browse through a number of contexts (one indentation), then finally see what you can expect from the system's method in those conditions.</p>
 <h2>3. A good test provides a clear and effective description</h2>
 <p>This one seems misleadingly simple but should not be underestimated. It is very similar to choosing effective names for variables, ones that clearly and unambiguously describe what the variable is about/for. If you structure your tests as suggested above in point 2, it will be easier to find an effective description as the method name and context are implicit to where the test is located, so no need to mention them in the description.  See an example description for the Counter class we used for point 1 above.</p>
-<p><img class=" size-full wp-image-1178 aligncenter" src="{{ site.baseurl }}/assets/screen-shot-2016-11-14-at-12-15-10.png" alt="screen-shot-2016-11-14-at-12-15-10" width="749" height="240" /></p>
+<p><img class=" size-full wp-image-1178 aligncenter" src="{{ site.baseurl }}/assets/screen-shot-2016-11-14-at-12-15-10.png" alt="screen-shot-2016-11-14-at-12-15-10"  /></p>
 <p>Notice how the test reads nicely in plain English: 'The #increment method, when the counter has reached the maximum count, does not affect the status of the counter'. A good description should be such that the test itself simply translates the description into code, with no surprises.</p>
 <h2>4. A good test hides irrelevant details</h2>
 <p>Let's start with an example here. We are going to move away from the Counter example and use a Person class. A Person has a number of attributes that it needs to be initialised with, say <em>@age</em>, <em>@hair_colour</em>, <em>@weight</em> and <em>@hobbies</em>. The following is a test to check that the <em>#grow_up</em> method increases <em>@age</em> by 1.</p>
-<p><img class=" size-full wp-image-1201 aligncenter" src="{{ site.baseurl }}/assets/screen-shot-2016-11-14-at-12-36-10.png" alt="screen-shot-2016-11-14-at-12-36-10" width="748" height="255" /></p>
+<p><img class=" size-full wp-image-1201 aligncenter" src="{{ site.baseurl }}/assets/screen-shot-2016-11-14-at-12-36-10.png" alt="screen-shot-2016-11-14-at-12-36-10"  /></p>
 <p>Notice how there is a lot of detail in this test that is irrelevant to what we are testing. What is worse, is that if one day the initialiser for the Person class requires an extra parameter (say <em>@eye_colour</em>), any test to do with Person will fail, <em>even if it has nothing to do with @eye_colour</em>.</p>
 <p>What we can do, is abstract creating a Person into its own method, like below:</p>
-<p><img class=" size-full wp-image-1258 aligncenter" src="{{ site.baseurl }}/assets/screen-shot-2016-11-14-at-13-29-02.png" alt="Screen Shot 2016-11-14 at 13.29.02.png" width="749" height="392" /></p>
+<p><img class=" size-full wp-image-1258 aligncenter" src="{{ site.baseurl }}/assets/screen-shot-2016-11-14-at-13-29-02.png" alt="Screen Shot 2016-11-14 at 13.29.02.png"  /></p>
 <p>Beautiful: the test is now so much more to the point, no need to know about hair_colour, weight or anything else as these do not matter!</p>
 <p>Notice how a positive side effect is that we have gone from arguments having an implicit meaning, based on their order (you had to know what <em><strong>3</strong></em>, <strong><em>:blue</em></strong>, and <strong><em>18</em></strong> meant in the person initialiser) to an explicit meaning (<em><strong>age: 3</strong></em>).</p>
 <p>Also, if suddenly something changes in the Person class and we have to provide <em>@eye_colur</em> at initialisation, all we have to do is update the <em>create_person</em> utility method and none of the existing tests will even 'notice'.</p>

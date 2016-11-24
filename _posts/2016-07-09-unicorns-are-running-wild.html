@@ -5,36 +5,15 @@ date: 2016-07-09 10:22:28.000000000 +01:00
 type: post
 published: true
 status: publish
-categories: []
-tags: []
-meta:
-  _publicize_done_external: a:2:{s:8:"facebook";a:1:{i:13657411;s:37:"https://facebook.com/1240814585959377";}s:7:"twitter";a:1:{i:13657413;s:59:"https://twitter.com/andrealobster/status/751723209410486273";}}
-  _rest_api_published: '1'
-  _rest_api_client_id: "-1"
-  _publicize_job_id: '24617623627'
-  _publicize_done_13720388: '1'
-  _wpas_done_13657411: '1'
-  _publicize_done_13720392: '1'
-  _wpas_done_13657413: '1'
-  publicize_twitter_user: andrealobster
-  publicize_linkedin_url: https://www.linkedin.com/updates?discuss=&scope=38290012&stype=M&topic=6157488914803281920&type=U&a=YRCU
-  _publicize_done_14739251: '1'
-  _wpas_done_14631794: '1'
-author:
-  login: andreamazza89
-  email: andrea.mazzarella89@gmail.com
-  display_name: andreamazza89
-  first_name: ''
-  last_name: ''
 ---
-<p>[caption id="attachment_668" align="aligncenter" width="2372"]<img class=" size-full wp-image-668 aligncenter" src="{{ site.baseurl }}/assets/toy-unicorn-vector-art.png" alt="toy-unicorn-vector-art.png" width="2372" height="2025" /> Toy Unicorn Vector art by spacefem is under CC0/Public Domain licence[/caption]</p>
+<p><img class=" size-full wp-image-668 aligncenter" src="{{ site.baseurl }}/assets/toy-unicorn-vector-art.png" alt="toy-unicorn-vector-art.png"  /> Toy Unicorn Vector art by spacefem is under CC0/Public Domain licence[/caption]</p>
 <p>This week at makers was great.</p>
 <p>We were divided into teams of four people and asked to work on a project with minimal guidance.<br />
 I am super happy about the team (ours was team unicorns) dynamics and proud of what we built, which can be found <a href="https://github.com/vannio/unicorn-framework" target="_blank">here</a> and is available as a Node package, just install Node and type <strong><em>npm install unicorn-list</em></strong> in the root of your project directory. As I write this post, one day ahead of publishing the framework it has been downloaded 120 times, whaat??!</p>
 <p>The brief was to make a simple front-end app, which displays lists dynamically, based on a to-do list model. You can add items to the to-do list and then check a box next to the task to move them to the 'completed' pile. The really cool thing is that after doing this simple app, we were supposed to create a framework out of it, to make building a simple web app with dynamic lists uber-simple.<br />
 What was awesome about our team is that we built everything from scratch, without using any other frameworks/libraries, starting from a static server in Node, whose only task is to read files from memory and send a copy to the client upon request. The server looks at the request url and determines which file should be read into a variable then sent as a response.<br />
 We then went on to design and write a (very basic but awesome) templating engine. The engine takes a <strong><em>.cats</em></strong> file and renders any dynamic content based on conventions we established. See below an example <em><strong>.cats</strong></em> file, which is effectively the html template of your one-page app and contains some special syntax that the templating engine picks up and renders based on a javascript object that contains arrays of strings.</p>
-<p><img class=" size-full wp-image-681 aligncenter" src="{{ site.baseurl }}/assets/screen-shot-2016-07-09-at-11-20-27.png" alt="Screen Shot 2016-07-09 at 11.20.27" width="1298" height="1022" /><br />
+<p><img class=" size-full wp-image-681 aligncenter" src="{{ site.baseurl }}/assets/screen-shot-2016-07-09-at-11-20-27.png" alt="Screen Shot 2016-07-09 at 11.20.27"  /><br />
 Finally, we put together the whole thing as a Node package, which allows anyone to download the framework and get started in a few seconds. We wrote a shell script that moves all files into place and also prints a pretty unicorn once the installation is complete!<br />
 This week I also gave a talk to our 'juniors' (people who just started the course) on the benefits of using diagrams, as well as single class responsibility and how to diagram classes' interaction; it was well received and I am happy I can start giving back to the community as I have already taken so much from it!<br />
 I have uploaded the slideshow <a href="https://github.com/andreamazza89/diagramming_presentation" target="_blank">here</a>.</p>
