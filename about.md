@@ -12,4 +12,4 @@ I am addicted to learning, continuous improvement and feedback (which is a big s
 
 This below is a little picture of my face so you can put a name to a face!
 
-![face](link)
+![face](photos/DSC_6975\ -\ Version\ 2.jpg)
