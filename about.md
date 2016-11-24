@@ -4,12 +4,12 @@ title: About
 permalink: /about/
 ---
 
-This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](http://jekyllrb.com/)
+Hi, my name is Andrea Mazzarella. Originally Italian, currently living in London and on the road to software crafts(person)ship.
 
-You can find the source code for the Jekyll new theme at:
-{% include icon-github.html username="jekyll" %} /
-[minima](https://github.com/jekyll/minima)
+I have started this blog to document my experience at MakersAcademy and hopefully will carry on blogging – mainly about coding, but also food, travelling and happy living.
 
-You can find the source code for Jekyll at
-{% include icon-github.html username="jekyll" %} /
-[jekyll](https://github.com/jekyll/jekyll)
+I am addicted to learning, continuous improvement and feedback (which is a big shortcut to continuous improvement)
+
+This below is a little picture of my face so you can put a name to a face!
+
+![face](link)
