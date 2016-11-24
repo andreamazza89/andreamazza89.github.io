@@ -1,0 +1,46 @@
+---
+layout: post
+title: Pizza, coding and GitHub
+date: 2016-03-05 23:52:26.000000000 +00:00
+type: post
+published: true
+status: publish
+categories: []
+tags: []
+meta:
+  _publicize_done_external: a:2:{s:8:"facebook";a:1:{i:13657411;s:37:"https://facebook.com/1143277932379710";}s:7:"twitter";a:1:{i:13657413;s:59:"https://twitter.com/andrealobster/status/706266189576601600";}}
+  _rest_api_published: '1'
+  _rest_api_client_id: "-1"
+  _publicize_job_id: '20472139267'
+  _publicize_done_13720388: '1'
+  _wpas_done_13657411: '1'
+  _publicize_done_13720392: '1'
+  _wpas_done_13657413: '1'
+  publicize_twitter_user: andrealobster
+  publicize_linkedin_url: https://www.linkedin.com/updates?discuss=&scope=38290012&stype=M&topic=6112031893396475904&type=U&a=nFXS
+  _publicize_done_13720398: '1'
+  _wpas_done_13657420: '1'
+author:
+  login: andreamazza89
+  email: andrea.mazzarella89@gmail.com
+  display_name: andreamazza89
+  first_name: ''
+  last_name: ''
+---
+<p><img class=" size-full wp-image-233 aligncenter" src="{{ site.baseurl }}/assets/img_3172.jpg" alt="IMG_3172" width="2448" height="2448" /></p>
+<p>Today my flatmate and I made and sold pizze at the Farmer's Market in Oval. That's Ivan in the picture.</p>
+<p>It was pretty cold and we had freezing wind on our faces the whole time, but it was pretty fun to finally some sell pizza. We designed and built the trailer from scratch; the whole thing is self sufficient, is carried around by a bicycle and can make up to 70 pizze in one session. Cool no? Look at it go on the road!</p>
+<p><img class=" size-full wp-image-234 aligncenter" src="{{ site.baseurl }}/assets/img_3170.jpg" alt="IMG_3170" width="2448" height="2448" /></p>
+<p>Ok, enough non-coding related talk.</p>
+<p>I have not been able to do that much coding in the last week, as I was away skying most of it. Got a few Codewars challenges done and read through The Well Grounded Rubyist a bit. Here's a cool pic I took on top of the mountain; you can see my girlfriend Liz and our friends Steph and Mich.</p>
+<p><img class=" size-full wp-image-232 aligncenter" src="{{ site.baseurl }}/assets/img_3156.jpg" alt="IMG_3156" width="3264" height="2448" />Anyway, something I have been wanting to work on but have not got around to do yet is get some practice on GitHub. I think the best way would be to put together a simple project in Ruby and track it on GitHub.</p>
+<p>I got my inspiration for this on Holiday: lots of payments were made by one person for a group of friends, and I kept track of it all to then enter onto a spreadsheet and figure out who owes whom what. How much better would it be if there was an application where you could just enter name of the person, how much they paid and then the program can tell you who owes who and what?!?</p>
+<p>Well, I will only be able to make something that runs on IRB and I am not quite sure if I will be able to save the status to reopen and add new entries later, but I guess this is more than good enough for practising on GitHub.</p>
+<p>Ok, this is what I figured so far in terms of design. There will be two classes: Person and Receipt.</p>
+<p>Each instance of Person will store how much each person has spent and a hash containing how much they owe to the others.</p>
+<p>The Receipt class is going to have one instance per trip. Each trip has an array of hashes containing every single expense as follows:</p>
+<p>ski_trip_2016 = [{date =&gt; date of expense, total_paid =&gt; price on receipt, paid_by =&gt; person who paid, paid for =&gt; who the expense was for, description =&gt; quick description }, ...]</p>
+<p>Each receipt object will store the total expenditure, as well as update how much a certain person has spent and how much each person owes the others.</p>
+<p>Mm reading the above it is a bit confusing but this is the first time I ever think about program design..hopefully I will make more sense of it soon!</p>
+<p>In addition to writing the classes above I will also need to write the main program to run a session in IRB and then think about saving and loading existing trips.</p>
+<p>You can follow my progress on <a href="https://github.com/andreamazza89/holiday_expenses" target="_blank">GitHub</a>.</p>

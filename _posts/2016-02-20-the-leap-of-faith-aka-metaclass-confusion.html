@@ -1,0 +1,72 @@
+---
+layout: post
+title: The leap of faith - aka metaclass confusion
+date: 2016-02-20 10:58:14.000000000 +00:00
+type: post
+published: true
+status: publish
+categories: []
+tags: []
+meta:
+  _publicize_done_external: a:2:{s:8:"facebook";a:1:{i:13657411;s:37:"https://facebook.com/1133311773376326";}s:7:"twitter";a:1:{i:13657413;s:59:"https://twitter.com/andrealobster/status/700997923996217344";}}
+  _rest_api_published: '1'
+  _rest_api_client_id: "-1"
+  _publicize_job_id: '19993683907'
+  _publicize_done_13720388: '1'
+  _wpas_done_13657411: '1'
+  _publicize_done_13720392: '1'
+  _wpas_done_13657413: '1'
+  publicize_twitter_user: andrealobster
+  publicize_linkedin_url: https://www.linkedin.com/updates?discuss=&scope=38290012&stype=M&topic=6106763618429263873&type=U&a=yDkR
+  _publicize_done_13720398: '1'
+  _wpas_done_13657420: '1'
+author:
+  login: andreamazza89
+  email: andrea.mazzarella89@gmail.com
+  display_name: andreamazza89
+  first_name: ''
+  last_name: ''
+---
+<div>[caption id="attachment_189" align="alignnone" width="2087"]<img class="alignnone size-full wp-image-189" src="{{ site.baseurl }}/assets/defense-gov_news_photo_110702-n-ou681-105_-_u-s-_navy_chief_petty_officer_larry_summerfield_assigned_to_the_navy_parachute_demonstration_team_the_leap_frogs_jumps_from_a_c-130_cargo.jpg" alt="Training" width="2087" height="1391" /> Petty Officer 1st Class Michelle Turner, U.s. Navy (www.defense.gov) [Public domain][/caption]</div>
+<div></div>
+<div>This week I have discovered that there is something I just have to take for granted, at least for now. I have a feeling it is not going to be the last time this happens...</div>
+<div></div>
+<div>Before I can talk about the issue, I need to explain what object-oriented programming is.</div>
+<div></div>
+<div>Certain programming languages (including <a href="http://ruby-doc.org">Ruby</a>, which I am learning at the moment) can be described as object-oriented. In an object-oriented environment, everything is an Object. I am going to use a real-world example to describe what an object is.</div>
+<div></div>
+<div>Let us take <em><strong>vehicle</strong></em> as an example. The main features of an object are its <span style="text-decoration:underline;">state</span>(s) and <span style="text-decoration:underline;">behaviour</span>(s). A <em><strong>vehicle</strong></em>'s main <span style="text-decoration:underline;">behaviours</span> are <em><strong>move,</strong></em> <em><strong>stop, load_item, unload_item</strong></em>. It can start moving if it was stationary or stop if it was moving; it can add an item to carry and drop it once it has reached destination. Its <span style="text-decoration:underline;">states</span> are <em><strong>moving?</strong></em>, <em><strong>items_carried</strong></em> and <em><strong>colour</strong></em>, describing, respectively, whether the vehicle is moving or not, how many items it is carrying and its colour. Nice.</div>
+<div></div>
+<div></div>
+<div>
+<p>[caption id="attachment_193" align="aligncenter" width="3648"]<img class=" size-full wp-image-193 aligncenter" src="{{ site.baseurl }}/assets/sinclair_c5_driver.jpg" alt="Sinclair_C5_driver" width="3648" height="2736" /> "Sinclair C5 Driver" by <a href="https://www.flickr.com/people/10211714@N03">Adam</a> is licensed under <a href="https://creativecommons.org/licenses/by-sa/2.0/deed.en">CC BY-SA 2.0</a>[/caption]</p>
+</div>
+<div>Now, for the concept of class. The <em><strong>vehicle</strong></em>'s behaviours and states are described and encapsulated in the <em><strong>Vehicle</strong></em> class, which is the idea of a vehicle rather than one particular instance of it. You can have a number of vehicles moving items around, each with their own <span style="text-decoration:underline;">state</span>, doing different things. All these <strong><em>vehicle</em></strong>s are <span style="text-decoration:underline;">objects</span> that belong to the <strong><em>Vehicle</em></strong><strong><em> </em></strong><span style="text-decoration:underline;">class</span>.</div>
+<div></div>
+<div>I love how this concept is very similar to Plato's <a href="https://en.wikipedia.org/wiki/Theory_of_Forms">Theory of Forms</a>. Even better, Plato's forms are to be Capitalised, just like classes -like <em><strong>Vehicle</strong></em>- in Ruby.</div>
+<div></div>
+<div>Next concept, <span style="text-decoration:underline;">class</span> extension. A certain <span style="text-decoration:underline;">class</span> can be extended to a new <span style="text-decoration:underline;">class</span>. The new class inherits all the behaviours and states ª of its 'parent' <span style="text-decoration:underline;">class</span>, which is called its <span style="text-decoration:underline;">superclass</span>. The point in doing this is creating <span style="text-decoration:underline;">classes</span> that are more specialised. For example, the <em><strong>Vehicle</strong></em> <span style="text-decoration:underline;">class</span> could be extended into a new <em><strong>Car</strong></em> <span style="text-decoration:underline;">class</span>, or <em><strong>Bus</strong></em>, or <em><strong>Wheel_barrow</strong></em>, you name it!<em><strong> </strong></em></div>
+<div></div>
+<div>All these new classes have more specific <span style="text-decoration:underline;">behaviours</span> and <span style="text-decoration:underline;">states</span> but they are all <em><strong>Vehicles</strong></em>, thus inherit the fundamental <span style="text-decoration:underline;">behaviours</span> and <span style="text-decoration:underline;">states</span> of a <em><strong>Vehicle</strong></em>: they can all carry items, move if static, stop if moving, have a colour, etc. Isn't this cool?</div>
+<div></div>
+<div>Ok, now onto the leap of faith.</div>
+<div></div>
+<div>In Ruby, every <span style="text-decoration:underline;">class</span> you define belongs to the primordial class <em><strong>Object</strong></em> ª. In other words, for any given <span style="text-decoration:underline;">class</span>, if you keep going up the inheritance tree, you will eventually get to the <em><strong>Object</strong></em> <span style="text-decoration:underline;">class</span>. Ok, this is fine, for instance, from the example above,</div>
+<div></div>
+<div style="text-align:center;"><b><i>SUV</i></b>--is a--&gt;<em><strong>Car</strong></em>--is a--&gt;<em><strong>Vehicle</strong></em>--is a--&gt;<em><strong>Object</strong></em>.</div>
+<div style="text-align:center;"></div>
+<div style="text-align:left;">Here is the conundrum: <em><strong>Object</strong></em> is a <span style="text-decoration:underline;">class</span>, in fact, you could say it is 'the' <span style="text-decoration:underline;">class,</span> given that all other <span style="text-decoration:underline;">classes</span> descend from it. However, there is a <span style="text-decoration:underline;">class</span> named <em><strong>Class </strong></em>! And guess what, this class is a descendant of the <em><strong>Object</strong></em> <span style="text-decoration:underline;">class</span>, but the <em><strong>Object</strong></em> <span style="text-decoration:underline;">class</span> is an instance of <em><strong>Class </strong></em>at the same time.</div>
+<div style="text-align:left;"></div>
+<div style="text-align:center;"><em><strong>Class</strong></em>--is a--&gt;<b><i>Object</i></b>--is a--&gt;<em><strong>Class ª</strong></em>.</div>
+<div style="text-align:center;"></div>
+<div style="text-align:left;"></div>
+<div style="text-align:left;"></div>
+<div style="text-align:left;">[caption id="attachment_208" align="aligncenter" width="1140"]<img class=" size-full wp-image-208 aligncenter" src="{{ site.baseurl }}/assets/operation_upshot-knothole_-_badger_001.jpg" alt="Operation_Upshot-Knothole_-_Badger_001" width="1140" height="969" /> By photo courtesy of National Security Administration / Nevada Site Office [Public domain][/caption]</div>
+<div style="text-align:left;"></div>
+<div style="text-align:left;">What?!? This is like saying <em><strong>Class</strong></em> is both the child and parent of its parent, <em><strong>Object</strong></em>.</div>
+<div style="text-align:left;"></div>
+<div style="text-align:left;">Well, there it is, my leap of faith. I just have to take this for granted now. See <a href="http://stackoverflow.com/questions/10525053/ruby-metaclass-confusion">this article</a> for more confusion.</div>
+<div></div>
+<div></div>
+<div></div>
+<p>ª (I am oversimplyfying here to keep this in layman/laywoman's terms)</p>

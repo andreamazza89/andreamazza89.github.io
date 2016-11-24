@@ -1,0 +1,46 @@
+---
+layout: post
+title: Database, filesystem, warehouses..say what?!
+date: 2016-06-14 11:06:34.000000000 +01:00
+type: post
+published: true
+status: publish
+categories: []
+tags: []
+meta:
+  _publicize_done_external: a:2:{s:8:"facebook";a:1:{i:13657411;s:37:"https://facebook.com/1221679001206269";}s:7:"twitter";a:1:{i:13657413;s:59:"https://twitter.com/andrealobster/status/742674612111085569";}}
+  _rest_api_published: '1'
+  _rest_api_client_id: "-1"
+  _publicize_job_id: '23821763018'
+  _publicize_done_13720388: '1'
+  _wpas_done_13657411: '1'
+  _publicize_done_13720392: '1'
+  _wpas_done_13657413: '1'
+  publicize_twitter_user: andrealobster
+  publicize_linkedin_url: https://www.linkedin.com/updates?discuss=&scope=38290012&stype=M&topic=6148440316937596928&type=U&a=4lXB
+  _publicize_done_14739251: '1'
+  _wpas_done_14631794: '1'
+author:
+  login: andreamazza89
+  email: andrea.mazzarella89@gmail.com
+  display_name: andreamazza89
+  first_name: ''
+  last_name: ''
+---
+<p><em>EDIT (please notice that having only just heard about databases, the information below is partially incorrect)</em></p>
+<p>I normally only write posts at the end of the week whilst here at <a href="http://www.makers.com" target="_blank">Makers</a><a href="http://www.makers.com" target="_blank">Makers</a> but this one is part of a task I am currently working on, which includes writing a blog post on databases :)</p>
+<p>Let's try to make it simple, by stating the obvious.</p>
+<p>Data is not very useful unless it can be stored and retrieved later on. When I say data, this could be anything from a movie, a number, a picture, some text..It does not matter, as at the end of the day, it will be stored as ones and zeroes.</p>
+<p>Ok, so there is a concept called 'persistence' of certain data. Data that persists outlives the functioning of the device it is stored in. In other words, a persistent way of storing a picture is by writing it onto a USB stick; once written, even if the USB stick turns off, we will still be able to retrieve the file in the future. It is harder to give an example of  non-persistent storage systems (cache would be an example), but please just trust that there are systems that only store data temporarily and will lose it if turned off.</p>
+<p>Nice, so now we have the obvious and the definition of persistence out of the way, let us talk about how computers store any data.</p>
+<p>One way is to use a FileSystem. This is what we are used to. Without going into too much detail (mainly because I would not be able to :D ), FileSystems allocate memory for data and know where they are located. In order to retrieve data within a filesystem, the user has to know the 'path' to the data. Even if you use Finder (in OSX) or Explorer (in Windows) and do a search, you are looking for the path to the data, which you have to know in order to retrieve the data.</p>
+<p>A database is just another way to store data; I am going to describe a <em>relational</em> database, again, mainly because this is the only one type of database I know at this time. I will use an analogy, as this helped me understand it better.</p>
+<p>The FileSystem described above could be thought of as a warehouse, with a rigid internal structure: you store data in a certain room and you need to be able to 'navigate' back to that room if you want to retrieve a specific piece of data. If you know what you want, you can search for it, 'navigate' there and retrieve it. But what if you are not sure about what you want, or you want all data that shares a certain attribute?</p>
+<p>Well, enter relational databases: these can be compared to a 'magical' warehouse, where rooms can reshuffle and move around to present you with the relevant data, without the need for you to 'navigate' around the warehouse. How is this possible, I hear you say?</p>
+<p>In a relational database, data is stored in tables. Each table is called 'relation', <em>students</em> could be the relation in our example. Any data we will store in our students table will be data about students. Simple no?</p>
+<p>Ok, refer to my beautiful sketch below; each row (also called tuple - don't ask me why!) is an entry in the table, so it corresponds to a student. Each column is an attribute. Attributes give additional on the data; in fact, attributes are data themselves, and could be of a number of types, like text, numbers, true/false, etc.</p>
+<p><img class="aligncenter size-full wp-image-598" src="{{ site.baseurl }}/assets/img_34341.jpg" alt="IMG_3434.JPG" width="3264" height="2448" /></p>
+<p>&nbsp;</p>
+<p>The powerful thing about databases is that we can retrieve data from them without knowing where it is, plus we can query specific subsets of data. For instance, we might want to retrieve all students who are over the age of 15, or any who are under 30 and from Italy.</p>
+<p>Ok, one final thing; as we need a way to write, read, update or delete from and to a database, we need a language to communicate to it. The most popular one today is <a href="https://en.wikipedia.org/wiki/SQL" target="_blank">SQL</a>.</p>
+<p>Ciao</p>

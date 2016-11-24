@@ -1,0 +1,69 @@
+---
+layout: post
+title: Rails' unobtrusive javascript
+date: 2016-09-06 21:22:20.000000000 +01:00
+type: post
+published: true
+status: publish
+categories: []
+tags: []
+meta:
+  _publicize_done_external: a:1:{s:7:"twitter";a:1:{i:13657413;s:59:"https://twitter.com/andrealobster/status/773270174485000194";}}
+  _rest_api_published: '1'
+  _rest_api_client_id: "-1"
+  _publicize_job_id: '26556345120'
+  _publicize_failed_13720388: O:13:"Keyring_Error":2:{s:6:"errors";a:1:{s:21:"keyring-request-error";a:1:{i:0;a:6:{s:7:"headers";O:42:"Requests_Utility_CaseInsensitiveDictionary":1:{s:7:"
+  _publicize_done_13720392: '1'
+  _wpas_done_13657413: '1'
+  publicize_twitter_user: andrealobster
+  _publicize_failed_14739251: O:13:"Keyring_Error":2:{s:6:"errors";a:1:{s:21:"keyring-request-error";a:1:{i:0;a:6:{s:7:"headers";O:42:"Requests_Utility_CaseInsensitiveDictionary":1:{s:7:"
+author:
+  login: andreamazza89
+  email: andrea.mazzarella89@gmail.com
+  display_name: andreamazza89
+  first_name: ''
+  last_name: ''
+---
+<p>Hi, a tutorial you say? Indeed. This is my first one, so please bear with me. It is about a tiny thing in Rails called unobtrusive javascript, which I found very sleek, so a quick example follows.</p>
+<p>Uh, just before that, how could I not mention what is going on in my life..I am halfway through week 4 post Makers, having a great time learning more and speaking to potential employers. This week I am away in Italy with Liz :) here is a picture of the sea (it was rowdy today).</p>
+<p><img class="alignnone size-full wp-image-902" src="{{ site.baseurl }}/assets/img_3575.jpg" alt="IMG_3575.JPG" width="3264" height="2448" /></p>
+<p>So, unobtrusive javascript. Let's say your frontend needs to interact with the server, say to create a new entry in a database, or update an existing one. If you also want the page to somehow update dynamically using javascript, you would have to write some code that is loaded with the page, which prevents the default behaviour when the action is triggered, interacts with the server and updates the page with the JSON returned by the server. Fine. However, Rails has very nice feature whereby you can 'tell' the form that you are going to use javascript. This will automatically prevent the default behaviour plus allow you to forward a snippet of javascript back from the server to dynamically update the page.</p>
+<p>You can find out more on <a href="http://guides.rubyonrails.org/working_with_javascript_in_rails.html" target="_blank">this guide</a>.</p>
+<p>Anyway, to show how it works, I made a little repo, you can clone it <a href="https://github.com/andreamazza89/rails_unobtrusive_js" target="_blank">here</a>. Also feel free to fork it and open pull requests, however I am going to start from scratch in the tutorial.</p>
+<p>In this project, we create a page that shows movies. Nice.</p>
+<p>First of all, install rails: follow step 3.1 in <a href="http://guides.rubyonrails.org/getting_started.html" target="_blank">this tutorial</a>. Then initialise the Rails project and move into it:</p>
+<blockquote>
+<p style="text-align:justify;">rails new rails_unobtrusive_js &amp;&amp; cd rails_unobtrusive_js</p>
+</blockquote>
+<p style="text-align:justify;">Create the movie model, which will store a title and description:</p>
+<blockquote>
+<p style="text-align:justify;">rails g model movie title description</p>
+</blockquote>
+<p style="text-align:justify;">And a controller for it</p>
+<blockquote>
+<p style="text-align:justify;">rails g controller movies</p>
+</blockquote>
+<p style="text-align:justify;">Then, in the routes config file (<em>./config/routes.rb</em>) set up the movies' routes; for this tutorial we just want to be able to show all movies in the database as well as add new ones, so the file should look like this:</p>
+<p style="text-align:justify;"><img class="alignnone size-full wp-image-837" src="{{ site.baseurl }}/assets/screen-shot-2016-09-06-at-21-16-50.png" alt="Screen Shot 2016-09-06 at 21.16.50.png" width="750" height="55" /></p>
+<p style="text-align:justify;">Ok, now let's create the <em>:index</em> action as well as the associated HTML view. In the movies controller (<em>./app/controllers/movies_controller.rb</em>), simply assign all existing movies to a variable; this will be used in the view.</p>
+<p style="text-align:justify;"><img class="alignnone size-full wp-image-807" src="{{ site.baseurl }}/assets/screen-shot-2016-09-06-at-20-54-29.png" alt="Screen Shot 2016-09-06 at 20.54.29.png" width="749" height="92" /></p>
+<p style="text-align:justify;">Now create a view file for this (<em>./app/views/movies/index.html.erb</em>), where we simply iterate over the list of movies and display the title. We do so using Rails' view  helper <strong>render</strong>, which looks for the partial file and passes each movie to it. So here is the view, nice and simple:</p>
+<p style="text-align:justify;"><img class="alignnone size-full wp-image-912" src="{{ site.baseurl }}/assets/screen-shot-2016-09-06-at-23-17-51.png" alt="Screen Shot 2016-09-06 at 23.17.51.png" width="752" height="57" /></p>
+<p style="text-align:justify;">You then create a partial (./app/views/movies/_movie.html.erb) and add each movie title as  a list item, like so:</p>
+<p style="text-align:justify;"><img class="alignnone size-full wp-image-872" src="{{ site.baseurl }}/assets/screen-shot-2016-09-06-at-22-13-47.png" alt="screen-shot-2016-09-06-at-22-13-47" width="751" height="19" /></p>
+<p style="text-align:justify;">Nice, simple. Now create a seed file for the database so we have a few existing movies to show. This should be located in <em>./db/seeds.rb</em>  and look something like this:</p>
+<p style="text-align:justify;"><img class="alignnone size-full wp-image-834" src="{{ site.baseurl }}/assets/screen-shot-2016-09-06-at-21-13-43.png" alt="Screen Shot 2016-09-06 at 21.13.43.png" width="749" height="58" /></p>
+<p style="text-align:justify;">Ok, we now have ourselves a little website. Run the database migration (<strong>bin/rake db:migrate</strong>) then seed it (<strong>bin/rake db:seed</strong>), finally run the server (<strong>bin/rails s</strong>) and marvel at the best website in the world by visiting <em>localhost:3000/movies</em>.</p>
+<p style="text-align:justify;">Right, now let's add a form to the view(<em>./app/views/movies/index.html.erb</em>) so we can create new movies. Notice the option <strong>remote: true</strong> in the form; this enables Rails' unobtrusive javascript, which disables the standard browser behaviour for a post request.</p>
+<p style="text-align:justify;"><img class="alignnone size-full wp-image-876" src="{{ site.baseurl }}/assets/screen-shot-2016-09-06-at-22-15-22.png" alt="Screen Shot 2016-09-06 at 22.15.22.png" width="748" height="193" /></p>
+<p style="text-align:justify;">And the :<strong>create</strong> action to the controller (<em>./app/controllers/movies_controller.rb</em>) to add a new movie to the database.</p>
+<p style="text-align:justify;"><img class="alignnone size-full wp-image-861" src="{{ site.baseurl }}/assets/screen-shot-2016-09-06-at-21-53-56.png" alt="screen-shot-2016-09-06-at-21-53-56" width="746" height="321" /></p>
+<p style="text-align:justify;">The action also knows to respond with some javascript to tell the browser what to do (see line 9 above). This is defined in a .js.erb file (<em>./app/views/movies/create.js.erb</em>); we can have it dynamically add the movie to the list of existing ones:</p>
+<p style="text-align:justify;"><img class="alignnone size-full wp-image-878" src="{{ site.baseurl }}/assets/screen-shot-2016-09-06-at-22-16-40.png" alt="Screen Shot 2016-09-06 at 22.16.40.png" width="749" height="20" /></p>
+<p style="text-align:justify;">Pretty neat no? Here is one more: you can use partials in your .js.erb files, like so:</p>
+<p style="text-align:justify;"><img class="alignnone size-full wp-image-886" src="{{ site.baseurl }}/assets/screen-shot-2016-09-06-at-22-25-14.png" alt="screen-shot-2016-09-06-at-22-25-14" width="750" height="20" /></p>
+<p style="text-align:justify;">Hopefully you can see why this is also cool. Send me a message if you disagree.</p>
+<p style="text-align:justify;">
+<p style="text-align:justify;">OK, I was going to add a button for each movie title to show the movie description with more unobtrusive javascript but I will leave that to you. The trick would be in storing the movie id in the button you create to dynamically update the page with the description, so you know which description to retrieve from the database.</p>
+<p style="text-align:justify;">Nice. Please feel free to make a pull request if you do this!</p>
+<p style="text-align:justify;">Ciao</p>

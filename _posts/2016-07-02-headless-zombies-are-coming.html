@@ -1,0 +1,47 @@
+---
+layout: post
+title: Headless Zombies are coming!!
+date: 2016-07-02 06:53:26.000000000 +01:00
+type: post
+published: true
+status: publish
+categories: []
+tags: []
+meta:
+  _rest_api_published: '1'
+  _publicize_done_external: a:2:{s:8:"facebook";a:1:{i:13657411;s:37:"https://facebook.com/1235579386482897";}s:7:"twitter";a:1:{i:13657413;s:59:"https://twitter.com/andrealobster/status/749133918272491522";}}
+  _rest_api_client_id: "-1"
+  _publicize_job_id: '24396238621'
+  _publicize_done_13720388: '1'
+  _wpas_done_13657411: '1'
+  _publicize_done_13720392: '1'
+  _wpas_done_13657413: '1'
+  publicize_twitter_user: andrealobster
+  publicize_linkedin_url: https://www.linkedin.com/updates?discuss=&scope=38290012&stype=M&topic=6154899623321366528&type=U&a=u9bi
+  _publicize_done_14739251: '1'
+  _wpas_done_14631794: '1'
+author:
+  login: andreamazza89
+  email: andrea.mazzarella89@gmail.com
+  display_name: andreamazza89
+  first_name: ''
+  last_name: ''
+---
+<p>[caption id="attachment_631" align="aligncenter" width="2048"]<img class=" size-full wp-image-631 aligncenter" src="{{ site.baseurl }}/assets/15453331985_b1dd372287_k.jpg" alt="15453331985_b1dd372287_k" width="2048" height="1935" /> Zombie Beard, by <a href="https://www.flickr.com/photos/scottod/" target="_blank">Scott O'Donnel</a>, is licensed under CC BY-2.0[/caption]</p>
+<p>Here we are, week 6 has just finised, which marks the halfway point through the course; I knew it was going too fast!</p>
+<p>As you might have read, this week I have been <a href="https://andreacodesblog.wordpress.com/2016/06/28/frustration/" target="_blank">frustrated</a>; there was just about too much we were struggling with within my team and at one point had spent a whole day getting nowhere. What happened is we decided to tackle this week's project using a set of technologies that was completely new to us.</p>
+<p>However things started moving from Wednesday and we have learned quite a bit since then. Granted, we are just scraping the surface and are by no means experts in what we learned, but you have to start somewhere, and I am sure learning something this way is much more persistent in the long term than canonical learning, being spoon-fed information.</p>
+<p>Anyway, what we spent most time researching before we could start writing the application was a framework to test the whole thing. And yes, before we write any code, we want to have a test for it that tells us what we expect from that code. We tried so many differenent options, and were not even completely sure what we really needed initially.<br />
+Zombie was our saviour. Zombie is a NodeJS framework (Node is the main technology we were using) that allows you to have automated tests that do things like:</p>
+<blockquote><p>-&gt; connect to the signup page<br />
+-&gt; fill in user information<br />
+-&gt; click 'submit'<br />
+-&gt; the page you land on should be <strong><em>hostaddress</em></strong>/<em>specific_page_you_should_land_on</em><br />
+-&gt; the page should display the new username in the top section</p></blockquote>
+<p>So instead of running the server, connecting to it and checking features manually we had our friend the Zombie doing these things for us automatically. Thanks Zombie. The first time you send the Zombie, say with the instructions above, it will complain that the signup page does not exist, which makes you create one. Then it will complain there needs to be a signup form on the page, which makes you add one, and so on, driving both page content, navigation and, most importantly, logic.</p>
+<p>A funny thing is that Zombie is headless. OK, maybe not that funny; it has been a long week... Headless means it does not need a specific browser to connect to a server, it follows instructions as above and then checks the results. Let me explain further. There are three main ways to test a web application from the point of view of the end user. The obvious one is doing it yourself by manually connecting to the server with a browser and checking it is behaving as expected. This is not very reliable and can become painfully time consuming if we are trying to test several features. So one way to automate is having a webdriver that starts one of your browsers and runs the tests for you (this is oversimplified). This method also allows to check compatibility across multiple browsers/versions of the same browser, however that makes for a much longer setup and overkill for what we were doing. It is pretty cool to see your browser by a third party though, much like Neo being hacked in The Matrix (not really, but sure Andrea..). Finally we have the headless method described above, which is much faster and does not require an actual browser, instead it connects to a server directly and analyses its responses. Cool no?</p>
+<p>Final point on Zombies: there is a great song by Fela Kuti called Zombie, check it out.</p>
+<p>I am happy to say I have learned plenty this week, despite the initial hiccup. In fact, one of the biggest takeaways is how I should deal with failure and learning completely new things in a short span of time. The former is easier than it sounds: sucking at something is good :) It means that there is room to get better and getting better at anything is a lot of fun!<br />
+It was much more difficult for me to learn new things quickly; my main problem with it is not being able to formulate a somewhat thorough understanding of the concept before being able to put it into practice. This slows me down. I am not saying having a shallow understanding of concepts is good, but, especially in programming, when learning completely new concepts, getting your hands dirty soon helps figuring things out and allows you to move on faster. This is related to a concept I am very fond of, information hiding, which I will talk about in the future.</p>
+<p>Today I am going to an event where everyone picks a new programming language; I plan to go for a functional one (a programming paradigm that is fairly different from the one we have been learning at Makers - object oriented). Quite excited to get started!</p>
+<p>That's it, Ciao.</p>
