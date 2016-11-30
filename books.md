@@ -12,3 +12,4 @@ for each chapter I read. This will make the reading slower but hopefully more
 meaningful. The links below are to my notes. Please feel free to contribute :)
 
 - [Software Craftmanship by Pete McBreen](https://github.com/andreamazza89/book_notes/tree/master/software_craftmanship_Pete_mc_Breen)
+- [Programming Elixir by Dave Thomas](https://github.com/andreamazza89/book_notes/tree/master/programming_elixir_dave_thomas)
