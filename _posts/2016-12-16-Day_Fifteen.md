@@ -15,7 +15,7 @@ your terminal.
 
 Here is my mental model of processes.
 
-![elixir processes](/assets/elixir_processes_1.jpg)
+![elixir processes](/assets/elixir_processes_1.jpg) 
 
 I imagine the Erlang virtual machine as an initially desolate world, where processes can
 come to life, generate other processes, and die. Not only does the virtual machine allow processes to come alive and stay 
