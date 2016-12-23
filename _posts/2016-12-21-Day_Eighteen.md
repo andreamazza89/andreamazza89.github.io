@@ -40,8 +40,8 @@ unit test does. This is normal as you are describing the system as a whole rathe
 an individual part of it. Of course you do not have to know how the whole thing 
 fits together, in fact, the test should not be about _how_ it fits together, but
 rather _what_ it does as a whole. I feel experience can help with this, but you
-have to start from somewhere! I also like the fractal nature of an integration
-test: you define what a system does; this does not work as you have not written the
+have to start from somewhere! I also like the fractal nature of an outside-in: 
+you define what a system does; this does not work as you have not written the
 system yet. The system you defined is made up of several subsystems, so
 in order to build these you write tests that describe what each subsystem does, 
 only to realise that (perhaps) the subsystem also has a few sub-sub-systems...
