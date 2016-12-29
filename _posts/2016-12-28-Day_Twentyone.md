@@ -51,7 +51,7 @@ which is then fed to the compiler to generate bytecode for the virtual machine. 
 AST is simply a 'translation' of our source code into a format that is understood
 by the compiler. Interestingly, the reason why all these languages exist is
 because we cannot speak machine-language and the machine cannot speak human
-language (the source code), so the same 'content' (the program) is translated
+language (the source code), so the same 'content' (the program) has to be translated
 from human (the source code) all the way down to something that controls the
 electrons flowing through the processor.
 
