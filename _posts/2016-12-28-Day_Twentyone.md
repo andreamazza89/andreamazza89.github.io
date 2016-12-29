@@ -14,9 +14,10 @@ get this uncomfortable feeling that I am not really in control of my code: what
 if the magical thing stops working? How will I fix it if I have no clue on how it
 operates?
 
-I am not saying that I want to understand everything, down to electrons flowing
-inside the processor, the same way a car driver does not need to know how the
-engine and transmission system work. This is called information hiding and
+I am not saying that I want to understand everything that goes on in a program,
+down to electrons flowing inside the processor, the same way a car driver does
+not need to know how the engine and transmission system work.
+This is called information hiding and
 it is a great thing. What I am not happy with is magic that happens at the same
 level of abstraction that I am in. For example, the Elixir Plug library has a
 Router module that allows you -amongst other things- to define what to do when a
