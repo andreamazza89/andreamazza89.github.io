@@ -9,7 +9,7 @@ categories: 8thLight apprenticeship
 - Started working on Human vs Computer on my web TicTacToe.
 
 First day of the year today. I had a freezing start, cycling in -1 C to then go
-for a swim before going into the office. Neither were a good choice!
+for a swim before going into the office. Neither was a good choice!
 
 Today I had my IPM (iteration planning meeting), and found out that I will be
 working with Elixir for another week, which is great news as I really like Elixir.
@@ -17,7 +17,7 @@ I definitely will be going back to it in the future, and maybe Erlang too.
 
 I am now adding the option to play against the computer in the web version of the
 tictactoe, which is making me scratch my head: as always new features make me
-realise how adverse to change my application is. The problem I have is that a
+realise how adverse to change my application can be. The problem is that a
 chosen move can now come from either the client or the browser, so it is impossible
 to have a 'clean' process whereby 'someone' just asks the current player for a move,
 regardless of the player type (polymorphysm). Currently my application only gets
