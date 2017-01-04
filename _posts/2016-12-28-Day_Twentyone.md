@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 8th Light apprenticeship - Day Twenty-one | Demystifying Elixir macros 
+title: 8th Light apprenticeship - Day Twenty-one | Demystifying Elixir macros
 categories: 8thLight apprenticeship
 ---
 
