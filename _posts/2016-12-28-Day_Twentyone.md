@@ -4,24 +4,22 @@ title: 8th Light apprenticeship - Day Twenty-one | Demystifying Elixir macros
 categories: 8thLight apprenticeship
 ---
 
-A disclaimer before we begin: I am not advocating the use of macros. Quite the
-opposite in fact, as it will hopefully be clear throughout the article. Deciding 
-to use macros in your code should be given serious consideration and justified
-by significant benefits.
+A disclaimer before we begin: I am not advocating the use of macros.
+The decision to use macros in your code should be given serious consideration
+and be justified on a case by case basis.
 
-I do not like magic tricks in programming. If something is mysteriously happening, I
-get this uncomfortable feeling that I am not really in control of my code: what
-if the magical thing stops working? How will I fix it if I have no clue on how it
-operates?
-
+I do not like magic tricks in programming. If something is mysteriously happening,
+I get an uncomfortable feeling that I am not in control of the way my code
+functions: what if the magic stops? How will I fix it if I do not know how it operates?
 I am not saying that I want to understand everything that goes on in a program,
-down to electrons flowing inside the processor, the same way a car driver does
-not need to know how the engine and transmission system work.
-This is called information hiding and
-it is a great thing. What I am not happy with is magic that happens at the same
-level of abstraction that I am in. For example, the Elixir Plug library has a
-Router module that allows you -amongst other things- to define what to do when a
-request comes in, like so:
+down to electrons flowing inside the processor, much like a mechanic does not
+need to understand the science behind internal combustion engines in order to
+repair a car. Being able to make use of a system without fully understanding how
+it works at all levels is called information hiding, which can be very useful,
+as it allows people to specialise in one area of a system rather than the whole.
+What I am not happy with is magic that happens at the same level of abstraction
+that I am in. For example, the Elixir Plug library has a Router module that
+allows you to define how to handle an HTTP request, like so:
 
 {% highlight elixir %}
   get "/hello" do
@@ -29,86 +27,102 @@ request comes in, like so:
   end
 {% endhighlight %}
 
-Now, that is nice and simple, however, there is a slightly terrifying detail:
-that `conn` variable has entered our scope and was assigned a value outside of
-our control. The value is a Plug connection struct, which represents an incoming
-request and is passed around the application in a pipeline fashion to be
-transformed into a response that is then sent back.
+The above defines a route, “/hello”, which responds to a GET request with the
+text “world” and HTTP status of 200. The code also contains some magic: `conn` entered the scope
+of `get` and was assigned a value outside of our control. `conn` is a Plug connection
+struct, which is the data structure used to represent an HTTP request.
 
-Since `get` is a macro, we need to understand macros before we can find out how
-that `conn` variable magically made it into our code.
+`get` is a macro, so we need to understand macros before we can find out how
+`conn` magically made it into our code.
 
-The word macro can mean a number of things, but in Elixir it is the mechanism
-that allows meta-programming. Meta-programming is when you write code whose
-purpose is to create other code, rather than executing. If you feel uncomfortable
-with this, you are having the right reaction: meta-programming is a very sharp
-tool that should only be used as a last resort, the main reason being how much
-harder this makes your code to understand.
+In Elixir, a macro is a mechanism that allows meta-programming. Meta-programming
+is a technique whereby  you write code whose purpose is to create or modify other
+code, rather than executing. If you feel uncomfortable with this, you are having
+a reasonable reaction: meta-programming can be a very dangerous tool that should
+only be used as a last resort, the main reason being how much harder it makes
+your code to understand.
 
-The compilation process in Elixir (or at least my very limited understanding of
-it!) involves generating an Abstract Syntax Tree (AST) from the source code,
-which is then fed to the compiler to generate bytecode for the virtual machine. The
-AST is simply a 'translation' of our source code into a format that is understood
-by the compiler. Interestingly, the reason why all these languages exist is
-because we cannot speak machine-language and the machine cannot speak human
-language (the source code), so the same 'content' (the program) has to be translated
-from human (the source code) all the way down to something that controls the
-electrons flowing through the processor.
+The compilation process in Elixir involves generating an Abstract Syntax Tree
+(AST) from the source code, which is then fed to the compiler to generate
+bytecode for the virtual machine. The AST is simply a ‘translation’ of our source
+code into a format that is understood by the compiler. When we write a macro,
+we directly manipulate the AST.
 
-When we write a macro, we directly manipulate the AST. The major building block
-for macros is `quote` (which is itself a macro!); this converts any expression
-into its AST equivalent. This is a tuple with three elements; let's have a look:
+The major building block for macros is `quote` (which is itself a macro!);
+this converts any expression into its AST equivalent, which is represented as a
+tuple; let’s have a look:
 
 {% highlight elixir %}
   iex()> quote do: sum(1,2,3)
     # => {:sum, [], [1, 2, 3]}
+{% endhighlight %}
 
-  iex()> quote do: variable
-    # => {:variable, [], Elixir}
+In the resulting tuple, the first element is an atom identifying the function,
+the second is metadata (none in this case), and the third is the function's
+list of arguments.
 
+Passing a variable instead of a function to `quote` yields a slightly different
+result:
+
+{% highlight elixir %}
+  iex()> quote do: foo
+    # => {:foo, [], Elixir}
+{% endhighlight %}
+
+The first element is an atom identifying the variable, the second
+metadata (none given in this case), and the third the context in which the variable
+exists ("Elixir" being the global scope). Notice how the above does not raise an
+error, even though the variable `foo` has not been previously declared.
+This is because `quote` simply translates the given block into its AST
+representation, regardless of variable declaration.
+
+Finally, you can see why humans prefer writing source code to ASTs: a
+simple expression with two additions turns into the following ugly nested expression,
+which is unreasonably hard to decode:
+
+{% highlight elixir %}
   iex()> quote do: (1 + 2) + 3
     # => {:+, [context: Elixir, import: Kernel], [{:+, [context: Elixir, import: Kernel], [1, 2]}, 3]}
 {% endhighlight %}
-
-The structure has a few nuances, but in general, the first element is an atom
-identifying either the function or variable name, the second is metadata, and the
-third is the argument/s to the function or context in which a variable exists (in
-the second example above the variable `variable` exists in the global scope).
-Notice how the second `quote` above does not raise an error, even though the variable
-does not exist. This is because `quote` simply translates the given block into
-its AST representation, regardless of whether the variable we are using was
-declared or not. Finally, you can see why humans prefer using source code to
-writing ASTs: a simple expression with two additions turns into this ugly nested
-expression, which is unreasonably hard to decode.
 
 The second building block for macros is `unquote`. This is a similar mechanism to
 string interpolation, which allows us to inject a value, expression, variable,
 etc. into a string. Here is a simple example of `unquote`, which can only
 be used inside a `quote` block:
 
+First we define a variable, `a`, in the current scope and assign it a value of `2`.
+
 {% highlight elixir %}
   iex()> a = 2
+{% endhighlight %}
+
+Then we create a simple AST that uses `a`.
+
+{% highlight elixir %}
   iex()> quote do: 40 + a
     # => {:+, [context: Elixir, import: Kernel], [40, {:a, [], Elixir}]}
+{% endhighlight %}
 
+The resulting tuple describes addition between the value `40` and the variable
+`a`. This is fine, but what if we wanted to use the current value of `a`, which
+we have set to `2`?
+
+What we need is `unquote`, which interpolates the current value of `a` inside the
+`quote` expression:
+
+{% highlight elixir %}
   iex()> quote do: 40 + unquote(a)
     # => {:+, [context: Elixir, import: Kernel], [40, 2]}
 {% endhighlight %}
 
-Refer to the arguments in the resulting AST tuple: the first expression means
-'forty plus whatever the variable a in the global scope is going to be',
-whereas the second one means 'forty plus the current value of a', which is why I
-had to declare and initialise a, otherwise its evaluation would have failed.
-In short, `unquote` evaluates the input expression and injects it into the `quote`
-block.
-
-Onto macros; macros are defined inside a module and its parameters (if any) are
+Macros are defined inside a module declaration, and their parameters —if any— are
 given to it in quoted form. A macro needs to return a quoted expression, as this is
-then used to manipulate the AST.
+then used by the compiler to manipulate the AST.
 
-Here is an example, where we create a macro (`evaluate`) that takes an expression,
+Here is an example where we create a macro named `evaluate` that takes an expression,
 prints out a message describing the expression and its result, then finally
-returns the result.
+returns the result. The function `Macro.to_string` simply takes a quoted expression
+and returns a string representation of it.
 
 {% highlight elixir %}
   defmodule VerboseEvaluation do
@@ -127,9 +141,8 @@ returns the result.
   end
 {% endhighlight %}
 
-You can play with the above by pasting it into an iex session, then requiring the
-VerboseEvaluation module, like so:
-
+You can play with the above by pasting it into the Elixir REPL, then requiring the
+`VerboseEvaluation` module, like so:
 
 {% highlight elixir %}
   # ... paste the module
@@ -142,13 +155,11 @@ VerboseEvaluation module, like so:
     # => 42
 {% endhighlight %}
 
-This has been a very basic introduction to macros, as I am still getting to
-grips with them myself. Please do refer to the [Elixir documentation](http://elixir-lang.org/getting-started/meta/macros.html)
-as well as this nice series of [blog posts](http://www.theerlangelist.com/article/macros_1)
-for much more in-depth explanations.
+With a basic understanding of how macros are constructed, let's look again at
+Plug's `conn` struct.
 
-Finally, I mentioned how Plug magically injects a variable (`conn`) into your code, with
-a value already assigned to it. Let's look into the mechanism that allows this to happen.
+I mentioned how Plug magically injects a variable —`conn`—
+into your code, with a value already assigned to it.
 Macros are, by default, hygienic, meaning that any variable created inside the
 macro is not allowed to leak into the scope the macro is used in. There are
 however ways to override this, like using the macro `var!`; here is a simple
@@ -169,7 +180,7 @@ example:
   end
   ################################
 
-  #...paste the above
+  #...after pasting the above snippet, type in the following:
   iex()> require MagicVariable
     # => MagicVariable
 
@@ -183,15 +194,11 @@ example:
     # => 42
 {% endhighlight %}
 
-Magic! The `inject_variable` initialises and assigns 42 to a variable named *secret_variable*
-, in whatever scope it is called from! The code in the Plug
+Magic! The `inject_variable` initialises and assigns `42` to a variable named
+*secret_variable*, in whatever scope it is called from! The code in the Plug
 library is of course much more complex, but this is to give you an idea of how
 the result can be achieved.
 
-I hope this has been an interesting and informative introduction to Macros in
-Elixir. There is so much more to macros and I am still learning myself, but
-hopefully I have tickled your curiosity, so that next time magic things occur,
-you might want to look into the source code and figure out what is really 
-happening under the hood.
-
-Ciao.
+There is much more to macros than I have covered here, but hopefully I have tickled your curiosity,
+so that next time magic things occur, you might want to look through the source code
+and figure out what is really happening under the hood.
