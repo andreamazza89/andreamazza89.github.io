@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 8th Light apprenticeship - Day Thirty-three
+title: 8th Light apprenticeship - Day Thirty-four
 categories: 8thLight apprenticeship
 ---
 
