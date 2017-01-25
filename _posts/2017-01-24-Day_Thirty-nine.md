@@ -30,5 +30,3 @@ a checked exception needs to say so in its signature, and any of its users need 
 either try/catch it or throw it again in their signature.
 - An unchecked exception, as the name suggests, does not require declaring the
 potential for failure in the method signature.
-- As a general rule, one should only use a checked expression if the client might
-be able to recover from the exception.
